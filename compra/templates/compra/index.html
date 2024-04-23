@@ -1,0 +1,51 @@
+{% extends 'base/base.html'%}
+
+{% block title %}Listado Productos{% endblock %}
+
+{% block content %}
+<main class="container">
+
+    {% if messages %}
+                <div class="text-center p-5 alert alert-success" role="alert">
+                    {{messages.first | safe}}
+                </div>
+    {% endif %}
+
+    <section class="mb-5 mt-5">
+
+        <h2 class="mb-5">Listado de Productos</h2>
+
+        {% if not productos%}
+            <p class="p-5 text-center fw-bold ">No hay productos que mostrar!!!...</p>
+        {%else%}
+
+        <div>
+            <table class="table">
+              <thead class="table-info">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Proveedor</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for producto in productos %}
+                <tr class="{% if forloop.counter|divisibleby:2 %} table-danger {% endif %}">
+                  <th scope="row">{{producto.id}}</th>
+                  <td>{{producto.nombre}}</td>
+                  <td>{{producto.precio}}$</td>
+                  <td>{{producto.stock_actual}}c/u</td>
+                  <td>{{producto.proveedor}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+        {%endif%}
+    </section>
+
+</main>
+
+{% endblock %}

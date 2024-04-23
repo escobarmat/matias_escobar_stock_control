@@ -1,0 +1,48 @@
+{% extends 'base/base.html'%}
+
+{% block title %}Listado Proveedores{% endblock %}
+
+{% block content %}
+<main class="container">
+    {% if messages %}
+    {% for message in messages %}
+                <div class="text-center p-5 alert alert-success" role="alert">
+                    {{message}}
+                </div>
+    {% endfor %}
+    {% endif %}
+     <section class="mb-5 mt-5">
+
+        <h2 class="mb-5">Listado de Proveedores</h2>
+
+        {% if not proveedores%}
+            <p class="text-center fw-bold mb-5 p-5">No hay proveedores que mostrar!!!...</p>
+        {%else%}
+
+        <div>
+            <table class="table">
+              <thead class="table-success">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Proveedor</th>
+                  <th scope="col">DNI</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for proveedor in proveedores %}
+                <tr class="{% if forloop.counter|divisibleby:2 %} table-secondary {% endif %}">
+                  <th scope="row">{{proveedor.id}}</th>
+                  <td>{{proveedor.nombre}} {{proveedor.apellido}}</td>
+                  <td>{{proveedor.dni}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+
+        {% endif %}
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+.header{
+    background-image: url("../../static/img/stock.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header__title{
+    font-size: 5rem;
+    backdrop-filter: blur(2px);
+}
