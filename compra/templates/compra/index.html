@@ -6,9 +6,13 @@
 <main class="container">
 
     {% if messages %}
-                <div class="text-center p-5 alert alert-success" role="alert">
-                    {{messages.first | safe}}
+        {% for message in messages %}
+            <div class="d-flex justify-content-center">
+                <div class=" w-50 text-center p-5 alert alert-success" role="alert">
+                    {{message}}
                 </div>
+            </div>
+        {% endfor %}
     {% endif %}
 
     <section class="mb-5 mt-5">

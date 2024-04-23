@@ -9,13 +9,11 @@ from compra.models import Producto, Proveedor
 
 def productos(request):
     productos = Producto.objects.all()
-    messages = get_messages(request)
-    return render(request, 'compra/index.html', {'productos': productos, 'messages': messages})
+    return render(request, 'compra/index.html', {'productos': productos})
 
 def proveedores(request):
     proveedores = Proveedor.objects.all()
-    messages = get_messages(request)
-    return render(request, 'compra/proveedores.html', {'proveedores': proveedores, 'messages': messages})
+    return render(request, 'compra/proveedores.html', {'proveedores': proveedores})
 def alta_proveedor(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
