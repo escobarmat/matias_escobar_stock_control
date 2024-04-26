@@ -40,7 +40,7 @@
               </thead>
               <tbody>
                 {% for producto in page_obj %}
-                <tr class="{% if forloop.counter|divisibleby:2 %} table-danger {% endif %}">
+                <tr  data-aos="fade-right" class="{% if forloop.counter|divisibleby:2 %} table-danger {% endif %}">
                   <th scope="row">{{producto.id}}</th>
                   <td>{{producto.nombre}}</td>
                   <td>{{producto.precio}}$</td>

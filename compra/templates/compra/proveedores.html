@@ -35,7 +35,7 @@
               </thead>
               <tbody>
                 {% for proveedor in page_obj %}
-                <tr class="{% if forloop.counter|divisibleby:2 %} table-secondary {% endif %}">
+                <tr data-aos="fade-left" class="{% if forloop.counter|divisibleby:2 %} table-secondary {% endif %}">
                   <th scope="row">{{proveedor.id}}</th>
                   <td>{{proveedor.nombre}} {{proveedor.apellido}}</td>
                   <td>{{proveedor.dni}}</td>
