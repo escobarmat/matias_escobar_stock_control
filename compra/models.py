@@ -10,6 +10,9 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre + ' ' + self.apellido
 
+    class Meta:
+        ordering = ['id']
+
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -19,3 +22,6 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    class Meta:
+        ordering = ['id']

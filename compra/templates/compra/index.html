@@ -19,7 +19,7 @@
 
         <h2 class="mb-5">Listado de Productos</h2>
 
-        {% if not productos%}
+        {% if not page_obj%}
             <p class="p-5 text-center fw-bold ">No hay productos que mostrar!!!...</p>
         {%else%}
 
@@ -35,7 +35,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for producto in productos %}
+                {% for producto in page_obj %}
                 <tr class="{% if forloop.counter|divisibleby:2 %} table-danger {% endif %}">
                   <th scope="row">{{producto.id}}</th>
                   <td>{{producto.nombre}}</td>
@@ -46,6 +46,23 @@
                 {% endfor %}
               </tbody>
             </table>
+            <div class="p-3 d-flex justify-content-center">
+                <span class="pagination step-links">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?page=1">&laquo; primera</a>
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">previa</a>
+                    {% endif %}
+
+                    <span class="text-secondary page-link current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a class="page-link"  href="?page={{ page_obj.next_page_number }}">siguiente</a>
+                        <a class="page-link"  href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
         {%endif%}
     </section>

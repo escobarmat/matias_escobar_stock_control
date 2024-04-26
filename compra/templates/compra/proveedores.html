@@ -17,7 +17,7 @@
 
         <h2 class="mb-5">Listado de Proveedores</h2>
 
-        {% if not proveedores%}
+        {% if not page_obj%}
             <p class="text-center fw-bold mb-5 p-5">No hay proveedores que mostrar!!!...</p>
         {%else%}
 
@@ -31,7 +31,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for proveedor in proveedores %}
+                {% for proveedor in page_obj %}
                 <tr class="{% if forloop.counter|divisibleby:2 %} table-secondary {% endif %}">
                   <th scope="row">{{proveedor.id}}</th>
                   <td>{{proveedor.nombre}} {{proveedor.apellido}}</td>
@@ -41,6 +41,23 @@
               </tbody>
             </table>
         </div>
+            <div class="p-3 d-flex justify-content-center">
+                <span class="pagination step-links">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?page=1">&laquo; primera</a>
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">previa</a>
+                    {% endif %}
+
+                    <span class="text-secondary page-link current">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a class="page-link"  href="?page={{ page_obj.next_page_number }}">siguiente</a>
+                        <a class="page-link"  href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
 
         {% endif %}
     </section>

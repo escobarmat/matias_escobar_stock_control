@@ -1,50 +1,52 @@
 from django.contrib import messages
-from django.contrib.messages import get_messages
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
+from compra.forms import ProductoForm, ProveedorForm
 from compra.models import Producto, Proveedor
 
 
 # Create your views here.
 
+def home(request):
+    return redirect('compra:productos')
 def productos(request):
     productos = Producto.objects.all()
-    return render(request, 'compra/index.html', {'productos': productos})
+    paginacion = Paginator(productos, 7)
+    page_number = request.GET.get("page")
+    page_obj = paginacion.get_page(page_number)
+    return render(request, 'compra/index.html', {'page_obj': page_obj})
+
 
 def proveedores(request):
     proveedores = Proveedor.objects.all()
-    return render(request, 'compra/proveedores.html', {'proveedores': proveedores})
+    paginacion = Paginator(proveedores, 7)
+    page_number = request.GET.get("page")
+    page_obj = paginacion.get_page(page_number)
+    return render(request, 'compra/proveedores.html', {'page_obj': page_obj})
+
+
 def alta_proveedor(request):
     if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        apellido = request.POST.get('apellido')
-        dni = request.POST.get('dni')
-        proveedor = Proveedor.objects.create(
-            nombre=nombre,
-            apellido=apellido,
-            dni=dni
-        )
-        proveedor.save()
-        messages.success(request, 'Proveedor creado con exito')
-        return redirect('compra:proveedores')
+        proveedor_form = ProveedorForm(request.POST)
+        if proveedor_form.is_valid():
+            nuevo_proveedor = proveedor_form.save(commit=True)
+            messages.success(request, 'Proveedor creado con exito')
+            return redirect(reverse('compra:proveedores'))
+    else:
+        proveedor_form = ProveedorForm()
+    return render(request, 'compra/alta_proveedor.html', {'form': proveedor_form})
 
-    return render(request, 'compra/alta_proveedor.html')
 
 def alta_producto(request):
-    proveedores = Proveedor.objects.all()
+    nuevo_producto = None
     if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        precio = request.POST.get('precio')
-        stock_actual = request.POST.get('stock_actual')
-        proveedor_id = request.POST.get('proveedor_id')
-        proveedor = Proveedor.objects.get(id=proveedor_id)
-        producto = Producto.objects.create(
-            nombre=nombre,
-            precio=precio,
-            stock_actual=stock_actual,
-            proveedor=proveedor
-        )
-        producto.save()
-        messages.success(request, 'Producto creado con exito')
-        return redirect('compra:productos')
-    return render(request, 'compra/alta_producto.html', {'proveedores': proveedores})
+        producto_form = ProductoForm(request.POST)
+        if producto_form.is_valid():
+            nuevo_producto = producto_form.save(commit=True)
+            messages.success(request, 'Producto creado con exito')
+            return redirect(reverse('compra:productos'))
+    else:
+        producto_form = ProductoForm()
+    return render(request, 'compra/alta_producto.html', {'form': producto_form})
