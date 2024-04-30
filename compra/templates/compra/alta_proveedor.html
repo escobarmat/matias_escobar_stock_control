@@ -3,13 +3,13 @@
 {% block title %}Alta Proveedor{% endblock %}
 
 {% block content %}
-<main class="container">
+<main class="container proveedor">
     <section>
         <div class="text-center mb-5">
             <h1>Alta de Proveedores</h1>
         </div>
                 <div class="d-flex justify-content-center">
-                    <form class="w-50 border rounded p-4" action="" method="post">
+                    <form class="formulario border rounded p-4" action="" method="post">
                         {% for field in form %}
                             <div class="form-group text-center ">
                                 <span class="fw-bold text-danger">{{field.errors}}</span>
@@ -25,6 +25,9 @@
                         </div>
                     </form>
                 </div>
+        <div>
+            <a class="text-light mt-5 mb-3 btn btn-secondary ms-4" href="{% url 'compra:proveedores' %}"><i class="fa-solid fa-backward"></i> Volver al Proveedores</a>
+        </div>
     </section>
 
 </main>

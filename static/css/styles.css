@@ -20,3 +20,16 @@ html {
     font-size: 4.5rem;
     backdrop-filter: blur(2px);
 }
+.formulario{
+    width: 100% !important;
+}
+@media (min-width: 576px) {
+    .formulario{
+        width: 80% !important;
+    }
+}
+@media (min-width: 768px) {
+    .formulario{
+        width: 50% !important;
+    }
+}
