@@ -20,6 +20,9 @@ html {
     font-size: 4.5rem;
     backdrop-filter: blur(2px);
 }
+.errorlist{
+    list-style: none;
+}
 .formulario{
     width: 100% !important;
 }
